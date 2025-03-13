@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Build and Deploy on Push
 
 on:
   push:
@@ -57,4 +57,4 @@ jobs:
           force_orphan: true
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
-          commit_message: 'Deploy to GitHub Pages' 
+          commit_message: 'Deploy to GitHub Pages (Push Update)' 
