@@ -1,0 +1,20 @@
+{
+  "name": "adi-blog",
+  "version": "1.0.0",
+  "description": "Personal blog using GitHub Issues as CMS",
+  "main": "src/scripts/build.js",
+  "scripts": {
+    "build": "node src/scripts/build.js",
+    "dev": "node src/scripts/dev.js"
+  },
+  "dependencies": {
+    "@octokit/rest": "^19.0.0",
+    "marked": "^5.0.0",
+    "front-matter": "^4.0.2",
+    "ejs": "^3.1.9",
+    "dayjs": "^1.11.0"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.0"
+  }
+} 

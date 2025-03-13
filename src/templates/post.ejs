@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= post.title.toLowerCase() %> - my blog</title>
+    <style>
+        body {
+            font-family: monospace;
+            line-height: 1.6;
+            color: #000;
+            max-width: 650px;
+            margin: 40px auto;
+            padding: 0 10px;
+        }
+        a {
+            color: #000;
+        }
+        h1, h2, p {
+            text-transform: lowercase;
+        }
+        img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <p><a href="/">← home</a></p>
+    </header>
+
+    <main>
+        <article>
+            <h1><%= post.title.toLowerCase() %></h1>
+            <p><%= formatDate(post.date).toLowerCase() %></p>
+            
+            <div>
+                <%- post.content %>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <p><a href="https://github.com/theoldmnk">github</a> | <a href="https://twitter.com/theoldmnk">twitter</a></p>
+    </footer>
+</body>
+</html> 

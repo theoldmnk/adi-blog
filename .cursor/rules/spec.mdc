@@ -1,0 +1,79 @@
+---
+description: this is the spec for my project
+globs: 
+---
+# GitHub Issues Blog Specification
+
+## Project Overview
+Create a personal blog using GitHub Issues as a content management system. Each issue in the repository will be automatically converted to a blog post on a static website hosted via GitHub Pages.
+
+## Core Requirements
+
+### Content Management
+- Use GitHub Issues as the primary content management system
+- Each issue represents one blog post
+- Issue title becomes post title
+- Issue body (written in Markdown) becomes post content
+- Issue labels serve as post categories/tags
+- Apply a "published" label to make posts visible on the blog
+
+### Site Structure
+- **Main Page (index.html)**: Displays a list of all published blog posts
+  - Show post title, publication date, and excerpt
+  - Sort posts by creation date (newest first)
+  - Link to individual post pages
+- **Post Pages**: Individual HTML page for each blog post
+  - Display full post content
+  - Show metadata (date, author, categories)
+  - Include navigation back to main page
+
+### Automation
+- Utilize GitHub Actions to automate the build process
+- Trigger builds when:
+  - New issues are created
+  - Existing issues are updated
+  - Labels are added/removed
+- Convert Markdown to HTML during the build
+- Generate all necessary pages automatically
+- Deploy to GitHub Pages
+
+### Design & User Experience
+- Clean, responsive design
+- Mobile-friendly layout
+- Readable typography
+- Dark/light mode toggle (optional)
+- Search functionality (optional)
+
+## Technical Implementation
+
+### Repository Structure
+```
+blog-repo/
+├── .github/workflows/ (GitHub Actions configuration)
+├── src/ (Templates and build scripts)
+├── public/ (Static assets: CSS, JS, images)
+└── index.html (Generated)
+```
+
+### Build Process Flow
+1. GitHub Action triggers when issues change
+2. Script fetches all issues with "published" label
+3. Converts each issue's Markdown to HTML
+4. Applies HTML templates to create post pages
+5. Generates index.html with list of all posts
+6. Deploys all files to GitHub Pages branch
+
+### Potential Extensions
+- Comments via GitHub Issues comments
+- Image support using issue attachments
+- Code syntax highlighting
+- Reading time estimates
+- View counts via GitHub API
+- Featured/pinned posts via specific labels
+
+## Simplicity & Maintenance
+- No database required
+- Zero server-side code
+- Free hosting via GitHub Pages
+- Leverage GitHub's existing features (Markdown, labels, etc.)
+- Content backup inherent in GitHub's version control

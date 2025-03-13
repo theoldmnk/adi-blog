@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>my blog</title>
+    <style>
+        body {
+            font-family: monospace;
+            line-height: 1.6;
+            color: #000;
+            max-width: 650px;
+            margin: 40px auto;
+            padding: 0 10px;
+        }
+        a {
+            color: #000;
+        }
+        h1, h2, p {
+            text-transform: lowercase;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>my blog</h1>
+        <p>my thoughts, on the internet.</p>
+    </header>
+
+    <main>
+        <% posts.forEach(post => { %>
+            <article>
+                <h2><a href="/posts/<%= post.number %>"><%= post.title.toLowerCase() %></a></h2>
+                <p><%= formatDate(post.date).toLowerCase() %></p>
+                <p><%= post.excerpt %></p>
+                <p><a href="/posts/<%= post.number %>">read more</a></p>
+            </article>
+            <hr>
+        <% }) %>
+    </main>
+
+    <footer>
+        <p><a href="https://github.com/theoldmnk">github</a> | <a href="https://twitter.com/theoldmnk">twitter</a></p>
+    </footer>
+</body>
+</html> 
