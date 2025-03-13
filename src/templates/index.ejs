@@ -8,25 +8,37 @@
         body {
             font-family: monospace;
             line-height: 1.6;
-            color: #000;
+            color: #fff;
+            background-color: #121212;
             max-width: 650px;
             margin: 40px auto;
             padding: 0 10px;
         }
         a {
-            color: #000;
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
         }
         h1, h2, p {
             text-transform: lowercase;
         }
-        .date {
-            font-size: 0.8em;
-            margin-left: 10px;
-            color: #666;
+        h2 {
+            margin-bottom: 0;
         }
-        .post-line {
-            display: flex;
-            align-items: baseline;
+        hr {
+            border: none;
+            border-top: 1px solid #333;
+            margin: 30px 0;
+        }
+        .date {
+            color: #666;
+            font-size: 0.9em;
+            margin-left: 5px;
+        }
+        footer {
+            margin-top: 50px;
         }
     </style>
 </head>
@@ -39,10 +51,7 @@
     <main>
         <% posts.forEach(post => { %>
             <article>
-                <div class="post-line">
-                    <h2><a href="posts/<%= post.number %>.html"><%= post.title.toLowerCase() %></a></h2>
-                    <span class="date">- <%= formatDate(post.date).toLowerCase() %></span>
-                </div>
+                <h2><a href="posts/<%= post.number %>.html"><%= post.title.toLowerCase() %></a> <span class="date">— <%= formatDate(post.date).toLowerCase() %></span></h2>
             </article>
             <hr>
         <% }) %>
