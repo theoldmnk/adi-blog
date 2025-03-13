@@ -30,10 +30,10 @@
     <main>
         <% posts.forEach(post => { %>
             <article>
-                <h2><a href="/posts/<%= post.number %>"><%= post.title.toLowerCase() %></a></h2>
+                <h2><a href="./posts/<%= post.number %>.html"><%= post.title.toLowerCase() %></a></h2>
                 <p><%= formatDate(post.date).toLowerCase() %></p>
                 <p><%= post.excerpt %></p>
-                <p><a href="/posts/<%= post.number %>">read more</a></p>
+                <p><a href="./posts/<%= post.number %>.html">read more</a></p>
             </article>
             <hr>
         <% }) %>
