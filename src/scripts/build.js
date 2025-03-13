@@ -7,6 +7,12 @@ const fs = require('fs').promises;
 const path = require('path');
 const dayjs = require('dayjs');
 
+// Configure marked to avoid deprecation warnings
+marked.use({ 
+    mangle: false, 
+    headerIds: false 
+});
+
 // Initialize Octokit
 const octokit = new Octokit({
     auth: process.env.GITHUB_TOKEN
@@ -50,7 +56,9 @@ function formatDate(date) {
 }
 
 async function generatePost(issue) {
-    const content = marked(issue.body);
+    // Handle empty or null issue body
+    const issueBody = issue.body || '';
+    const content = marked(issueBody);
     const template = await fs.readFile(path.join(__dirname, '../templates/post.ejs'), 'utf-8');
     
     const html = ejs.render(template, {
@@ -74,7 +82,7 @@ async function generateIndex(issues) {
     
     const posts = issues.map(issue => ({
         title: issue.title,
-        excerpt: issue.body.split('\n')[0], // First line as excerpt
+        excerpt: issue.body ? issue.body.split('\n')[0] : '', // Handle empty body
         date: issue.created_at,
         labels: issue.labels,
         number: issue.number

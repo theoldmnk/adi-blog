@@ -4,7 +4,7 @@ const path = require('path');
 const { exec } = require('child_process');
 const { watch } = require('fs');
 
-const PORT = process.env.PORT || 3000;
+const BASE_PORT = process.env.PORT || 3000;
 const DIST_DIR = path.join(__dirname, '../../dist');
 const TEMPLATES_DIR = path.join(__dirname, '../templates');
 
@@ -103,6 +103,26 @@ function watchFiles() {
     });
 }
 
+// Try to start server on a port, incrementing if port is in use
+function tryStartServer(port, maxAttempts = 10) {
+    server.once('error', (err) => {
+        if (err.code === 'EADDRINUSE' && maxAttempts > 0) {
+            console.log(`⚠️ Port ${port} is already in use, trying ${port + 1}...`);
+            tryStartServer(port + 1, maxAttempts - 1);
+        } else {
+            console.error('Failed to start server:', err);
+            process.exit(1);
+        }
+    });
+    
+    server.listen(port, () => {
+        console.log(`🌍 Development server running at http://localhost:${port}`);
+        console.log('📝 Edit your posts in GitHub Issues');
+        console.log('🔄 Template changes will trigger automatic rebuilds');
+        console.log('🔄 Refresh your browser to see the changes');
+    });
+}
+
 async function startServer() {
     try {
         // Run initial build
@@ -111,13 +131,8 @@ async function startServer() {
         // Start watching files
         watchFiles();
         
-        // Start the server
-        server.listen(PORT, () => {
-            console.log(`🌍 Development server running at http://localhost:${PORT}`);
-            console.log('📝 Edit your posts in GitHub Issues');
-            console.log('🔄 Template changes will trigger automatic rebuilds');
-            console.log('🔄 Refresh your browser to see the changes');
-        });
+        // Start the server with port retry logic
+        tryStartServer(BASE_PORT);
     } catch (error) {
         console.error('Failed to start development server:', error);
         process.exit(1);
