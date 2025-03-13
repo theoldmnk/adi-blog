@@ -2,9 +2,11 @@ const http = require('http');
 const fs = require('fs').promises;
 const path = require('path');
 const { exec } = require('child_process');
+const { watch } = require('fs');
 
 const PORT = process.env.PORT || 3000;
 const DIST_DIR = path.join(__dirname, '../../dist');
+const TEMPLATES_DIR = path.join(__dirname, '../templates');
 
 // MIME types for different file extensions
 const MIME_TYPES = {
@@ -21,6 +23,7 @@ const MIME_TYPES = {
 // Run the build script
 function runBuild() {
     return new Promise((resolve, reject) => {
+        console.log('🔄 Running build...');
         exec('node src/scripts/build.js', (error, stdout, stderr) => {
             if (error) {
                 console.error('Build error:', error);
@@ -29,6 +32,7 @@ function runBuild() {
             }
             console.log(stdout);
             if (stderr) console.error(stderr);
+            console.log('✅ Build completed');
             resolve();
         });
     });
@@ -81,16 +85,38 @@ const server = http.createServer(async (req, res) => {
     }
 });
 
+// Watch for file changes
+function watchFiles() {
+    console.log('👀 Watching for file changes...');
+    
+    // Watch template directory
+    watch(TEMPLATES_DIR, { recursive: true }, async (eventType, filename) => {
+        if (filename) {
+            console.log(`🔄 File changed: ${filename}`);
+            try {
+                await runBuild();
+                console.log('🔄 Rebuild complete, refresh your browser to see changes');
+            } catch (error) {
+                console.error('Error rebuilding after file change:', error);
+            }
+        }
+    });
+}
+
 async function startServer() {
     try {
         // Run initial build
         await runBuild();
         
+        // Start watching files
+        watchFiles();
+        
         // Start the server
         server.listen(PORT, () => {
             console.log(`🌍 Development server running at http://localhost:${PORT}`);
             console.log('📝 Edit your posts in GitHub Issues');
-            console.log('🔄 Changes will require a manual rebuild (restart the server)');
+            console.log('🔄 Template changes will trigger automatic rebuilds');
+            console.log('🔄 Refresh your browser to see the changes');
         });
     } catch (error) {
         console.error('Failed to start development server:', error);

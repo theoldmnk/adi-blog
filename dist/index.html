@@ -19,6 +19,15 @@
         h1, h2, p {
             text-transform: lowercase;
         }
+        .date {
+            font-size: 0.8em;
+            margin-left: 10px;
+            color: #666;
+        }
+        .post-line {
+            display: flex;
+            align-items: baseline;
+        }
     </style>
 </head>
 <body>
@@ -30,17 +39,17 @@
     <main>
         
             <article>
-                <h2><a href="./posts/1.html">i rock</a></h2>
-                <p>march 13, 2025</p>
-                <p>hi internet</p>
-                <p><a href="./posts/1.html">read more</a></p>
+                <div class="post-line">
+                    <h2><a href="posts/1.html">i rock</a></h2>
+                    <span class="date">- march 13, 2025</span>
+                </div>
             </article>
             <hr>
         
     </main>
 
     <footer>
-        <p><a href="https://github.com/theoldmnk">github</a> | <a href="https://twitter.com/theoldmnk">twitter</a></p>
+        <p><a href="https://github.com/theoldmnk" target="_blank">github</a> | <a href="https://x.com/theoldmnk" target="_blank">twitter</a></p>
     </footer>
 </body>
 </html> 
