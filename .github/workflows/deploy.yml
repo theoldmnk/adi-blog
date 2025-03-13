@@ -38,6 +38,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
 
+      - name: List build output
+        run: ls -la dist/
+
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
@@ -45,4 +48,5 @@ jobs:
           branch: gh-pages
           clean: true # Automatically remove deleted files from the deploy branch
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "Deploy blog updates [skip ci]" 
+          commit-message: "Deploy blog updates [skip ci]"
+          single-commit: true # Use a single commit instead of maintaining history 

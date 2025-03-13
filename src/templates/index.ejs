@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <base href=".">
+    <base href="">
     <title>my blog</title>
     <style>
         body {
@@ -31,10 +31,10 @@
     <main>
         <% posts.forEach(post => { %>
             <article>
-                <h2><a href="./posts/<%= post.number %>.html"><%= post.title.toLowerCase() %></a></h2>
+                <h2><a href="posts/<%= post.number %>.html"><%= post.title.toLowerCase() %></a></h2>
                 <p><%= formatDate(post.date).toLowerCase() %></p>
                 <p><%= post.excerpt %></p>
-                <p><a href="./posts/<%= post.number %>.html">read more</a></p>
+                <p><a href="posts/<%= post.number %>.html">read more</a></p>
             </article>
             <hr>
         <% }) %>
